@@ -20,4 +20,4 @@
 
 #include <gio/gio.h>
 
-gboolean copy_files_to (GList *file_list, GFile *dest);
+gboolean copy_files_to(GList *file_list, GFile *dest);

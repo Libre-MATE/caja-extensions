@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Jürg Billeter <j@bitron.ch>
  *
@@ -28,11 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define CAJA_TYPE_IMAGE_RESIZER         (caja_image_resizer_get_type ())
-G_DECLARE_FINAL_TYPE (CajaImageResizer, caja_image_resizer, CAJA, IMAGE_RESIZER, GObject)
+#define CAJA_TYPE_IMAGE_RESIZER (caja_image_resizer_get_type())
+G_DECLARE_FINAL_TYPE(CajaImageResizer, caja_image_resizer, CAJA, IMAGE_RESIZER,
+                     GObject)
 
-CajaImageResizer *caja_image_resizer_new (GList *files);
-void caja_image_resizer_show_dialog (CajaImageResizer *dialog);
+CajaImageResizer *caja_image_resizer_new(GList *files);
+void caja_image_resizer_show_dialog(CajaImageResizer *dialog);
 
 G_END_DECLS
 

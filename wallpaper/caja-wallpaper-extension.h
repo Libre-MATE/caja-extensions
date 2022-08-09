@@ -17,7 +17,8 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+ * USA.
  *
  *  Authors: Adam Israel <adam@battleaxe.net>
  *           Stefano Karapetsas <stefano@karapetsas.com>
@@ -30,23 +31,23 @@
 
 G_BEGIN_DECLS
 
-#define CAJA_TYPE_CWE  (caja_cwe_get_type ())
-#define CAJA_CWE(o)    (G_TYPE_CHECK_INSTANCE_CAST ((o), CAJA_TYPE_CWE, CajaCwe))
-#define CAJA_IS_CWE(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), CAJA_TYPE_CWE))
+#define CAJA_TYPE_CWE (caja_cwe_get_type())
+#define CAJA_CWE(o) (G_TYPE_CHECK_INSTANCE_CAST((o), CAJA_TYPE_CWE, CajaCwe))
+#define CAJA_IS_CWE(o) (G_TYPE_CHECK_INSTANCE_TYPE((o), CAJA_TYPE_CWE))
 
-typedef struct _CajaCwe      CajaCwe;
+typedef struct _CajaCwe CajaCwe;
 typedef struct _CajaCweClass CajaCweClass;
 
 struct _CajaCwe {
-	GObject __parent;
+  GObject __parent;
 };
 
 struct _CajaCweClass {
-	GObjectClass __parent;
+  GObjectClass __parent;
 };
 
-GType caja_cwe_get_type      (void);
-void  caja_cwe_register_type (GTypeModule *module);
+GType caja_cwe_get_type(void);
+void caja_cwe_register_type(GTypeModule *module);
 
 G_END_DECLS
 

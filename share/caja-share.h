@@ -30,24 +30,24 @@ G_BEGIN_DECLS
  * instantiated by caja.  It implements the GInterfaces
  * exported by libcaja. */
 
-typedef struct _CajaShare      CajaShare;
+typedef struct _CajaShare CajaShare;
 typedef struct _CajaShareClass CajaShareClass;
 
 struct _CajaShare {
-	GObject parent_slot;
+  GObject parent_slot;
 };
 
 struct _CajaShareClass {
-	GObjectClass parent_slot;
+  GObjectClass parent_slot;
 
-	/* No extra class members */
+  /* No extra class members */
 };
 
-typedef struct _CajaShareData      CajaShareData;
+typedef struct _CajaShareData CajaShareData;
 
 struct _CajaShareData {
-  gchar		*fullpath;
-  gchar		*section;
+  gchar *fullpath;
+  gchar *section;
   CajaFileInfo *fileinfo;
 };
 
@@ -60,4 +60,3 @@ typedef enum {
 } CajaShareStatus;
 
 #endif
-

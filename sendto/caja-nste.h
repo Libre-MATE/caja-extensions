@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Roberto Majadas <roberto.majadas@openshine.com>
  *
@@ -28,23 +29,23 @@
 
 G_BEGIN_DECLS
 
-#define CAJA_TYPE_NSTE  (caja_nste_get_type ())
-#define CAJA_NSTE(o)    (G_TYPE_CHECK_INSTANCE_CAST ((o), CAJA_TYPE_NSTE, CajaNste))
-#define CAJA_IS_NSTE(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), CAJA_TYPE_NSTE))
+#define CAJA_TYPE_NSTE (caja_nste_get_type())
+#define CAJA_NSTE(o) (G_TYPE_CHECK_INSTANCE_CAST((o), CAJA_TYPE_NSTE, CajaNste))
+#define CAJA_IS_NSTE(o) (G_TYPE_CHECK_INSTANCE_TYPE((o), CAJA_TYPE_NSTE))
 
-typedef struct _CajaNste      CajaNste;
+typedef struct _CajaNste CajaNste;
 typedef struct _CajaNsteClass CajaNsteClass;
 
 struct _CajaNste {
-	GObject __parent;
+  GObject __parent;
 };
 
 struct _CajaNsteClass {
-	GObjectClass __parent;
+  GObjectClass __parent;
 };
 
-GType caja_nste_get_type      (void);
-void  caja_nste_register_type (GTypeModule *module);
+GType caja_nste_get_type(void);
+void caja_nste_register_type(GTypeModule *module);
 
 G_END_DECLS
 

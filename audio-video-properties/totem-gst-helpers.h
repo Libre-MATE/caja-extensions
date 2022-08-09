@@ -13,13 +13,13 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
 
 #ifndef HAVE_TOTEM_GST_HELPERS_H
 #define HAVE_TOTEM_GST_HELPERS_H
 
-void totem_gst_disable_display_decoders (void);
+void totem_gst_disable_display_decoders(void);
 
-#endif				/* HAVE_TOTEM_GST_HELPERS_H */
+#endif /* HAVE_TOTEM_GST_HELPERS_H */

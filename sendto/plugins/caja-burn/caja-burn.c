@@ -26,15 +26,15 @@
 #endif
 
 #include <glib/gi18n-lib.h>
-
 #include <string.h>
-#include "nst-common.h"
+
 #include "caja-sendto-plugin.h"
+#include "nst-common.h"
 
 enum {
-	COL_PIXBUF,
-	COL_LABEL,
-	NUM_COLS,
+  COL_PIXBUF,
+  COL_LABEL,
+  NUM_COLS,
 };
 
 #define COMBOBOX_OPTION_NEW_DVD 0
@@ -42,152 +42,122 @@ enum {
 
 static GFile *burn = NULL;
 
-static
-gboolean init (NstPlugin *plugin)
-{
-	GtkIconTheme *it;
-	char *cmd;
+static gboolean init(NstPlugin *plugin) {
+  GtkIconTheme *it;
+  char *cmd;
 
-	g_print ("Init caja burn plugin\n");
+  g_print("Init caja burn plugin\n");
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  bindtextdomain(GETTEXT_PACKAGE, MATELOCALEDIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 #endif /* ENABLE_NLS */
 
-	it = gtk_icon_theme_get_default ();
-	gtk_icon_theme_append_search_path (it, DATADIR "/brasero/icons");
+  it = gtk_icon_theme_get_default();
+  gtk_icon_theme_append_search_path(it, DATADIR "/brasero/icons");
 
-	cmd = g_find_program_in_path ("brasero");
-	if (cmd == NULL)
-		return FALSE;
-	g_free (cmd);
+  cmd = g_find_program_in_path("brasero");
+  if (cmd == NULL) return FALSE;
+  g_free(cmd);
 
-	burn = g_file_new_for_uri ("burn:/");
+  burn = g_file_new_for_uri("burn:/");
 
-	return TRUE;
+  return TRUE;
 }
 
-static
-GtkWidget* get_contacts_widget (NstPlugin *plugin)
-{
-	GtkWidget *widget;
-	GtkCellRenderer *renderer;
-	GtkListStore *store;
-	GtkTreeModel *model;
-	GFileEnumerator *fenum;
-	GFileInfo *file_info = NULL;
-	int selection = COMBOBOX_OPTION_NEW_DVD;
+static GtkWidget *get_contacts_widget(NstPlugin *plugin) {
+  GtkWidget *widget;
+  GtkCellRenderer *renderer;
+  GtkListStore *store;
+  GtkTreeModel *model;
+  GFileEnumerator *fenum;
+  GFileInfo *file_info = NULL;
+  int selection = COMBOBOX_OPTION_NEW_DVD;
 
-	fenum = g_file_enumerate_children (burn,
-					   G_FILE_ATTRIBUTE_STANDARD_NAME,
-					   G_FILE_QUERY_INFO_NONE,
-					   NULL,
-					   NULL);
+  fenum = g_file_enumerate_children(burn, G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-	if (fenum != NULL) {
-		file_info = g_file_enumerator_next_file (fenum, NULL, NULL);
-		g_object_unref (fenum);
-	}
+  if (fenum != NULL) {
+    file_info = g_file_enumerator_next_file(fenum, NULL, NULL);
+    g_object_unref(fenum);
+  }
 
-	store = gtk_list_store_new (NUM_COLS, G_TYPE_STRING, G_TYPE_STRING);
+  store = gtk_list_store_new(NUM_COLS, G_TYPE_STRING, G_TYPE_STRING);
 
-	gtk_list_store_insert_with_values (store, NULL,
-					   INT_MAX,
-					   COL_PIXBUF, "media-optical-blank",
-					   COL_LABEL, _("New CD/DVD"),
-					   -1);
+  gtk_list_store_insert_with_values(store, NULL, INT_MAX, COL_PIXBUF,
+                                    "media-optical-blank", COL_LABEL,
+                                    _("New CD/DVD"), -1);
 
-	if (file_info != NULL) {
-		gtk_list_store_insert_with_values (store, NULL,
-						   INT_MAX,
-						   COL_PIXBUF, "media-optical-data-new",
-						   COL_LABEL, _("Existing CD/DVD"),
-						   -1);
-		g_object_unref (file_info);
-		selection = COMBOBOX_OPTION_EXISTING_DVD;
-	}
+  if (file_info != NULL) {
+    gtk_list_store_insert_with_values(store, NULL, INT_MAX, COL_PIXBUF,
+                                      "media-optical-data-new", COL_LABEL,
+                                      _("Existing CD/DVD"), -1);
+    g_object_unref(file_info);
+    selection = COMBOBOX_OPTION_EXISTING_DVD;
+  }
 
-	model = GTK_TREE_MODEL (store);
-	widget = gtk_combo_box_new_with_model (model);
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (widget),
-				    renderer,
-				    FALSE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (widget),
-					renderer,
-					"icon-name", COL_PIXBUF,
-					NULL);
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (widget),
-				    renderer,
-				    TRUE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (widget),
-					renderer,
-					"text", COL_LABEL,
-					NULL);
+  model = GTK_TREE_MODEL(store);
+  widget = gtk_combo_box_new_with_model(model);
+  renderer = gtk_cell_renderer_pixbuf_new();
+  gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widget), renderer, FALSE);
+  gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(widget), renderer, "icon-name",
+                                 COL_PIXBUF, NULL);
+  renderer = gtk_cell_renderer_text_new();
+  gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widget), renderer, TRUE);
+  gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(widget), renderer, "text",
+                                 COL_LABEL, NULL);
 
-	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), selection);
+  gtk_combo_box_set_active(GTK_COMBO_BOX(widget), selection);
 
-	return widget;
+  return widget;
 }
 
-static
-gboolean send_files (NstPlugin *plugin,
-		     GtkWidget *burntype_widget,
-		     GList *file_list)
-{
-	GFileEnumerator *fenum;
-	GFileInfo *file_info;
-	GFile *child;
+static gboolean send_files(NstPlugin *plugin, GtkWidget *burntype_widget,
+                           GList *file_list) {
+  GFileEnumerator *fenum;
+  GFileInfo *file_info;
+  GFile *child;
 
-	if (gtk_combo_box_get_active (GTK_COMBO_BOX (burntype_widget)) == COMBOBOX_OPTION_NEW_DVD) {
-		fenum = g_file_enumerate_children (burn,
-						   G_FILE_ATTRIBUTE_STANDARD_NAME,
-						   G_FILE_QUERY_INFO_NONE,
-						   NULL,
-						   NULL);
+  if (gtk_combo_box_get_active(GTK_COMBO_BOX(burntype_widget)) ==
+      COMBOBOX_OPTION_NEW_DVD) {
+    fenum = g_file_enumerate_children(burn, G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                      G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-		if (fenum != NULL) {
-			while ((file_info = g_file_enumerator_next_file (fenum, NULL, NULL)) != NULL) {
-				child = g_file_get_child (burn,
-							  g_file_info_get_name(file_info));
+    if (fenum != NULL) {
+      while ((file_info = g_file_enumerator_next_file(fenum, NULL, NULL)) !=
+             NULL) {
+        child = g_file_get_child(burn, g_file_info_get_name(file_info));
 
-				g_object_unref (file_info);
-				g_file_delete (child, NULL, NULL);
-				g_object_unref (child);
-			}
-			g_object_unref (fenum);
-		}
-	}
+        g_object_unref(file_info);
+        g_file_delete(child, NULL, NULL);
+        g_object_unref(child);
+      }
+      g_object_unref(fenum);
+    }
+  }
 
-	copy_files_to (file_list, burn);
+  copy_files_to(file_list, burn);
 
-	gtk_show_uri_on_window (NULL, "burn:///", GDK_CURRENT_TIME, NULL);
+  gtk_show_uri_on_window(NULL, "burn:///", GDK_CURRENT_TIME, NULL);
 
-	return TRUE;
+  return TRUE;
 }
 
-static
-gboolean destroy (NstPlugin *plugin)
-{
-	g_object_unref (burn);
-	burn = NULL;
-	return TRUE;
+static gboolean destroy(NstPlugin *plugin) {
+  g_object_unref(burn);
+  burn = NULL;
+  return TRUE;
 }
 
-static
-NstPluginInfo plugin_info = {
-	"brasero",
-	"caja-burn",
-	N_("CD/DVD Creator"),
-	NULL,
-	CAJA_CAPS_SEND_DIRECTORIES,
-	init,
-	get_contacts_widget,
-	NULL,
-	send_files,
-	destroy
-};
+static NstPluginInfo plugin_info = {"brasero",
+                                    "caja-burn",
+                                    N_("CD/DVD Creator"),
+                                    NULL,
+                                    CAJA_CAPS_SEND_DIRECTORIES,
+                                    init,
+                                    get_contacts_widget,
+                                    NULL,
+                                    send_files,
+                                    destroy};
 
-NST_INIT_PLUGIN (plugin_info)
+NST_INIT_PLUGIN(plugin_info)

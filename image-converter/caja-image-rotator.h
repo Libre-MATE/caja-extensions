@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Jürg Billeter <j@bitron.ch>
  *
@@ -28,11 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define CAJA_TYPE_IMAGE_ROTATOR         (caja_image_rotator_get_type ())
-G_DECLARE_FINAL_TYPE (CajaImageRotator, caja_image_rotator, CAJA, IMAGE_ROTATOR, GObject)
+#define CAJA_TYPE_IMAGE_ROTATOR (caja_image_rotator_get_type())
+G_DECLARE_FINAL_TYPE(CajaImageRotator, caja_image_rotator, CAJA, IMAGE_ROTATOR,
+                     GObject)
 
-CajaImageRotator *caja_image_rotator_new (GList *files);
-void caja_image_rotator_show_dialog (CajaImageRotator *dialog);
+CajaImageRotator *caja_image_rotator_new(GList *files);
+void caja_image_rotator_show_dialog(CajaImageRotator *dialog);
 
 G_END_DECLS
 

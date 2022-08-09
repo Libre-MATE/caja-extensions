@@ -16,7 +16,8 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+ * USA.
  *
  *  Authors: Felipe Barriga Richards <spam@felipebarriga.cl>
  */
@@ -28,23 +29,25 @@
 
 G_BEGIN_DECLS
 
-#define CAJA_TYPE_XATTR_TAGS  (caja_xattr_tags_get_type ())
-#define CAJA_XATTR_TAGS(o)    (G_TYPE_CHECK_INSTANCE_CAST ((o), CAJA_TYPE_XATTR_TAGS, cajaXattrTags))
-#define CAJA_IS_XATTR_TAGS(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), CAJA_TYPE_XATTR_TAGS))
+#define CAJA_TYPE_XATTR_TAGS (caja_xattr_tags_get_type())
+#define CAJA_XATTR_TAGS(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), CAJA_TYPE_XATTR_TAGS, cajaXattrTags))
+#define CAJA_IS_XATTR_TAGS(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), CAJA_TYPE_XATTR_TAGS))
 
-typedef struct _CajaXattrTags      CajaXattrTags;
+typedef struct _CajaXattrTags CajaXattrTags;
 typedef struct _CajaXattrTagsClass CajaXattrTagsClass;
 
 struct _CajaXattrTags {
-	GObject __parent;
+  GObject __parent;
 };
 
 struct _CajaXattrTagsClass {
-	GObjectClass __parent;
+  GObjectClass __parent;
 };
 
 GType caja_xattr_tags_get_type(void);
-void  caja_xattr_tags_register_type(GTypeModule *module);
+void caja_xattr_tags_register_type(GTypeModule *module);
 
 G_END_DECLS
 

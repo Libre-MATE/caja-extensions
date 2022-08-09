@@ -18,39 +18,32 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
 
 #include "totem-gst-helpers.h"
+
 #include <gst/gstprotection.h>
 
 /* Disable decoders that require a display environment to work,
  * and that might cause crashes */
-void
-totem_gst_disable_display_decoders (void)
-{
-	GstRegistry *registry;
-	const char *blacklisted_plugins[] = {
-	  "bmcdec",
-	  "vaapi",
-	  "video4linux2"
-	};
-	guint i;
+void totem_gst_disable_display_decoders(void) {
+  GstRegistry *registry;
+  const char *blacklisted_plugins[] = {"bmcdec", "vaapi", "video4linux2"};
+  guint i;
 
-	/* Disable the vaapi plugin as it will not work with the
-	 * fakesink we use:
-	 * See: https://bugzilla.gnome.org/show_bug.cgi?id=700186 and
-	 * https://bugzilla.gnome.org/show_bug.cgi?id=749605 */
-	registry = gst_registry_get ();
+  /* Disable the vaapi plugin as it will not work with the
+   * fakesink we use:
+   * See: https://bugzilla.gnome.org/show_bug.cgi?id=700186 and
+   * https://bugzilla.gnome.org/show_bug.cgi?id=749605 */
+  registry = gst_registry_get();
 
-	for (i = 0; i < G_N_ELEMENTS (blacklisted_plugins); i++) {
-		GstPlugin *plugin =
-			gst_registry_find_plugin (registry,
-						  blacklisted_plugins[i]);
-		if (plugin)
-			gst_registry_remove_plugin (registry, plugin);
-	}
+  for (i = 0; i < G_N_ELEMENTS(blacklisted_plugins); i++) {
+    GstPlugin *plugin =
+        gst_registry_find_plugin(registry, blacklisted_plugins[i]);
+    if (plugin) gst_registry_remove_plugin(registry, plugin);
+  }
 }
 
 /*

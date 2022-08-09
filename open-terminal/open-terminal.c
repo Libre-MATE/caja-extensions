@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Christian Neumair <chris@gnome-de.org>
  *
@@ -26,36 +27,28 @@
 #endif
 
 #include <glib/gi18n-lib.h>
-
 #include <libcaja-extension/caja-extension-types.h>
 
 #include "caja-open-terminal.h"
 
 static GType type_list[1];
 
-void
-caja_module_initialize (GTypeModule *module)
-{
-	g_print ("Initializing caja-open-terminal extension\n");
+void caja_module_initialize(GTypeModule *module) {
+  g_print("Initializing caja-open-terminal extension\n");
 
-	caja_open_terminal_register_type (module);
-	type_list[0] = CAJA_TYPE_OPEN_TERMINAL;
+  caja_open_terminal_register_type(module);
+  type_list[0] = CAJA_TYPE_OPEN_TERMINAL;
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  bindtextdomain(GETTEXT_PACKAGE, MATELOCALEDIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 #endif /* ENABLE_NLS */
 }
 
-void
-caja_module_shutdown (void)
-{
-	g_print ("Shutting down caja-open-terminal extension\n");
+void caja_module_shutdown(void) {
+  g_print("Shutting down caja-open-terminal extension\n");
 }
 
-void
-caja_module_list_types (const GType **types,
-			    int          *num_types)
-{
-	*types = type_list;
-	*num_types = G_N_ELEMENTS (type_list);
+void caja_module_list_types(const GType **types, int *num_types) {
+  *types = type_list;
+  *num_types = G_N_ELEMENTS(type_list);
 }

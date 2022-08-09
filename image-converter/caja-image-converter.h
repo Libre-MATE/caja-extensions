@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Jürg Billeter <j@bitron.ch>
  *
@@ -32,22 +33,25 @@ G_BEGIN_DECLS
  * instantiated by caja.  It implements the GInterfaces
  * exported by libcaja. */
 
-#define CAJA_TYPE_IMAGE_CONVERTER	  (caja_image_converter_get_type ())
-#define CAJA_IMAGE_CONVERTER(o)		  (G_TYPE_CHECK_INSTANCE_CAST ((o), CAJA_TYPE_IMAGE_CONVERTER, CajaImageConverter))
-#define CAJA_IS_IMAGE_CONVERTER(o)	  (G_TYPE_CHECK_INSTANCE_TYPE ((o), CAJA_TYPE_IMAGE_CONVERTER))
-typedef struct _CajaImageConverter	  CajaImageConverter;
-typedef struct _CajaImageConverterClass	  CajaImageConverterClass;
+#define CAJA_TYPE_IMAGE_CONVERTER (caja_image_converter_get_type())
+#define CAJA_IMAGE_CONVERTER(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), CAJA_TYPE_IMAGE_CONVERTER, \
+                              CajaImageConverter))
+#define CAJA_IS_IMAGE_CONVERTER(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), CAJA_TYPE_IMAGE_CONVERTER))
+typedef struct _CajaImageConverter CajaImageConverter;
+typedef struct _CajaImageConverterClass CajaImageConverterClass;
 
 struct _CajaImageConverter {
-	GObject parent_slot;
+  GObject parent_slot;
 };
 
 struct _CajaImageConverterClass {
-	GObjectClass parent_slot;
+  GObjectClass parent_slot;
 };
 
-GType caja_image_converter_get_type      (void);
-void  caja_image_converter_register_type (GTypeModule *module);
+GType caja_image_converter_get_type(void);
+void caja_image_converter_register_type(GTypeModule *module);
 
 G_END_DECLS
 

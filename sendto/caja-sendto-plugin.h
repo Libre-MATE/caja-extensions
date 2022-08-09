@@ -44,15 +44,16 @@ typedef struct _NstPlugin NstPlugin;
 /**
  * NstPluginCapabilities:
  * @CAJA_CAPS_NONE: No capabilities
- * @CAJA_CAPS_SEND_DIRECTORIES: The plugin can send whole directories without compression
+ * @CAJA_CAPS_SEND_DIRECTORIES: The plugin can send whole directories without
+ *compression
  * @CAJA_CAPS_SEND_IMAGES: The plugin only sends images which could be resized
  *
  * Capabilities of the plugin.
  **/
 typedef enum {
-	CAJA_CAPS_NONE = 0,
-	CAJA_CAPS_SEND_DIRECTORIES = 1 << 0,
-	CAJA_CAPS_SEND_IMAGES = 1 << 1,
+  CAJA_CAPS_NONE = 0,
+  CAJA_CAPS_SEND_DIRECTORIES = 1 << 0,
+  CAJA_CAPS_SEND_IMAGES = 1 << 1,
 } NstPluginCapabilities;
 
 /**
@@ -60,30 +61,35 @@ typedef enum {
  * @icon: The icon name for the plugin selection drop-down
  * @id: A unique ID representing the plugin
  * @description: The label used in the plugin selection drop-down
- * @gettext_package: The domain to use to translate the description, %NULL if the plugin is part of caja-sendto
+ * @gettext_package: The domain to use to translate the description, %NULL if
+ *the plugin is part of caja-sendto
  * @capabilities: a bitmask of #NstPluginCapabilities
- * @init: Check for dependencies, and return %FALSE if dependencies such as programs are missing.
- * @get_contacts_widget: Return the contact widget, the widget to select the destination of the files
- * @validate_destination: Validate whether the destination can receive the file. This callback is optional.
- * @send_files: Actually send the files to the selected destination. The file list is a #GList of URI strings.
+ * @init: Check for dependencies, and return %FALSE if dependencies such as
+ *programs are missing.
+ * @get_contacts_widget: Return the contact widget, the widget to select the
+ *destination of the files
+ * @validate_destination: Validate whether the destination can receive the file.
+ *This callback is optional.
+ * @send_files: Actually send the files to the selected destination. The file
+ *list is a #GList of URI strings.
  * @destroy: Free all the resources used by the plugin.
  *
- * A structure representing a caja-sendto plugin. You should also call NST_INIT_PLUGIN() on the plugin structure to export it.
+ * A structure representing a caja-sendto plugin. You should also call
+ *NST_INIT_PLUGIN() on the plugin structure to export it.
  **/
-struct _NstPluginInfo
-{
-	gchar                             *icon;
-	gchar                             *id;
-	gchar                             *description;
-	gchar                             *gettext_package;
-	NstPluginCapabilities              capabilities;
-	gboolean (*init)                  (NstPlugin *plugin);
-	GtkWidget* (*get_contacts_widget) (NstPlugin *plugin);
-	gboolean (*validate_destination)  (NstPlugin *plugin, GtkWidget *contact_widget, char **error);
-	gboolean (*send_files)            (NstPlugin *plugin,
-					   GtkWidget *contact_widget,
-					   GList *file_list);
-	gboolean (*destroy)               (NstPlugin *plugin) ;
+struct _NstPluginInfo {
+  gchar *icon;
+  gchar *id;
+  gchar *description;
+  gchar *gettext_package;
+  NstPluginCapabilities capabilities;
+  gboolean (*init)(NstPlugin *plugin);
+  GtkWidget *(*get_contacts_widget)(NstPlugin *plugin);
+  gboolean (*validate_destination)(NstPlugin *plugin, GtkWidget *contact_widget,
+                                   char **error);
+  gboolean (*send_files)(NstPlugin *plugin, GtkWidget *contact_widget,
+                         GList *file_list);
+  gboolean (*destroy)(NstPlugin *plugin);
 };
 
 /**
@@ -93,10 +99,9 @@ struct _NstPluginInfo
  *
  * A structure as used in caja-sendto.
  **/
-struct _NstPlugin
-{
-	GModule *module;
-	NstPluginInfo *info;
+struct _NstPlugin {
+  GModule *module;
+  NstPluginInfo *info;
 };
 
 /**
@@ -105,12 +110,11 @@ struct _NstPlugin
  *
  * Call this on an #NstPluginInfo structure to make it available to caja-sendto.
  **/
-# define NST_INIT_PLUGIN(plugininfo)					\
-	gboolean nst_init_plugin(NstPlugin *plugin);			\
-        G_MODULE_EXPORT gboolean nst_init_plugin(NstPlugin *plugin) {	\
-		plugin->info = &(plugininfo);				\
-                return TRUE;						\
-        }
+#define NST_INIT_PLUGIN(plugininfo)                             \
+  gboolean nst_init_plugin(NstPlugin *plugin);                  \
+  G_MODULE_EXPORT gboolean nst_init_plugin(NstPlugin *plugin) { \
+    plugin->info = &(plugininfo);                               \
+    return TRUE;                                                \
+  }
 
 #endif /* _CAJA_SENDTO_PLUGIN_H_ */
-

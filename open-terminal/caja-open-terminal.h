@@ -15,7 +15,8 @@
  *
  *  You should have received a copy of the GNU General Public
  *  License along with this library; if not, write to the Free
- *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  *  Author: Christian Neumair <chris@gnome-de.org>
  *
@@ -32,22 +33,24 @@ G_BEGIN_DECLS
  * instantiated by caja.  It implements the GInterfaces
  * exported by libcaja. */
 
-#define CAJA_TYPE_OPEN_TERMINAL	  (caja_open_terminal_get_type ())
-#define CAJA_OPEN_TERMINAL(o)	  (G_TYPE_CHECK_INSTANCE_CAST ((o), CAJA_TYPE_OPEN_TERMINAL, CajaOpenTerminal))
-#define CAJA_IS_OPEN_TERMINAL(o)	  (G_TYPE_CHECK_INSTANCE_TYPE ((o), CAJA_TYPE_OPEN_TERMINAL))
-typedef struct _CajaOpenTerminal      CajaOpenTerminal;
+#define CAJA_TYPE_OPEN_TERMINAL (caja_open_terminal_get_type())
+#define CAJA_OPEN_TERMINAL(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), CAJA_TYPE_OPEN_TERMINAL, CajaOpenTerminal))
+#define CAJA_IS_OPEN_TERMINAL(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), CAJA_TYPE_OPEN_TERMINAL))
+typedef struct _CajaOpenTerminal CajaOpenTerminal;
 typedef struct _CajaOpenTerminalClass CajaOpenTerminalClass;
 
 struct _CajaOpenTerminal {
-	GObject parent_slot;
+  GObject parent_slot;
 };
 
 struct _CajaOpenTerminalClass {
-	GObjectClass parent_slot;
+  GObjectClass parent_slot;
 };
 
-GType caja_open_terminal_get_type      (void);
-void  caja_open_terminal_register_type (GTypeModule *module);
+GType caja_open_terminal_get_type(void);
+void caja_open_terminal_register_type(GTypeModule *module);
 
 G_END_DECLS
 
