@@ -442,7 +442,7 @@ static gboolean set_model_for_options_combobox(NS_ui *ui) {
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(ui->options_combobox),
                                  renderer, "text", COLUMN_DESCRIPTION, NULL);
 
-  g_signal_connect(G_OBJECT(ui->options_combobox), "changed",
+  g_signal_connect(ui->options_combobox, "changed",
                    G_CALLBACK(option_changed), ui);
 
   gtk_combo_box_set_active(GTK_COMBO_BOX(ui->options_combobox), option);
@@ -524,7 +524,7 @@ static void caja_sendto_create_ui(void) {
 
   gtk_settings = gtk_settings_get_default();
   button_image = GTK_WIDGET(gtk_builder_get_object(builder, "image1"));
-  g_signal_connect(G_OBJECT(gtk_settings), "notify::gtk-button-images",
+  g_signal_connect(gtk_settings, "notify::gtk-button-images",
                    G_CALLBACK(update_button_image), button_image);
   update_button_image(gtk_settings, NULL, button_image);
 
@@ -560,17 +560,16 @@ static void caja_sendto_create_ui(void) {
 
   set_contact_widgets(ui);
   supports_dirs = set_model_for_options_combobox(ui);
-  g_signal_connect(G_OBJECT(ui->dialog), "destroy", G_CALLBACK(destroy_dialog),
-                   NULL);
-  g_signal_connect(G_OBJECT(ui->cancel_button), "clicked",
+  g_signal_connect(ui->dialog, "destroy", G_CALLBACK(destroy_dialog), NULL);
+  g_signal_connect(ui->cancel_button, "clicked",
                    G_CALLBACK(destroy_dialog), NULL);
-  g_signal_connect(G_OBJECT(ui->send_button), "clicked",
+  g_signal_connect(ui->send_button, "clicked",
                    G_CALLBACK(send_button_cb), ui);
-  g_signal_connect(G_OBJECT(ui->pack_entry), "activate",
+  g_signal_connect(ui->pack_entry, "activate",
                    G_CALLBACK(send_button_cb), ui);
-  g_signal_connect(G_OBJECT(ui->pack_entry), "notify::text",
+  g_signal_connect(ui->pack_entry, "notify::text",
                    G_CALLBACK(pack_entry_changed_cb), ui);
-  g_signal_connect(G_OBJECT(ui->pack_checkbutton), "toggled",
+  g_signal_connect(ui->pack_checkbutton, "toggled",
                    G_CALLBACK(toggle_pack_check), ui);
 
   g_object_unref(builder);

@@ -187,11 +187,11 @@ static GtkWidget *get_contacts_widget(NstPlugin *plugin) {
                                  NULL);
   gtk_combo_box_set_active(GTK_COMBO_BOX(cb), 0);
 
-  g_signal_connect(G_OBJECT(vol_monitor), "mount-removed",
+  g_signal_connect(vol_monitor, "mount-removed",
                    G_CALLBACK(cb_mount_removed), plugin);
-  g_signal_connect(G_OBJECT(vol_monitor), "mount-added",
+  g_signal_connect(vol_monitor, "mount-added",
                    G_CALLBACK(cb_mount_added), plugin);
-  g_signal_connect(G_OBJECT(vol_monitor), "mount-changed",
+  g_signal_connect(vol_monitor, "mount-changed",
                    G_CALLBACK(cb_mount_changed), plugin);
 
   return cb;
