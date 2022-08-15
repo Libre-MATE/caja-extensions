@@ -253,7 +253,7 @@ static void discovered_cb(GstDiscoverer *discoverer, GstDiscovererInfo *info,
   /* General */
   duration = gst_discoverer_info_get_duration(info);
   bacon_video_widget_properties_set_duration(props->priv->props,
-                                             duration / GST_SECOND * 1000);
+                                             (int)(((double) duration) / GST_SECOND * 1000.0));
 
   sinfo = gst_discoverer_info_get_stream_info(info);
   if (sinfo) {

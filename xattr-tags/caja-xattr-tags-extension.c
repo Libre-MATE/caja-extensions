@@ -54,12 +54,12 @@ typedef struct {
  * function: hex_unescape_string
  * GIO - GLib Input, Output and Streaming Library
  */
-static char *hex_unescape_string(const char *str, int *out_len,
+static char *hex_unescape_string(const char *str, size_t *out_len,
                                  gboolean *free_return) {
   int i;
   char *unescaped_str, *p;
   unsigned char c;
-  int len;
+  size_t len;
 
   len = strlen(str);
 
@@ -72,8 +72,8 @@ static char *hex_unescape_string(const char *str, int *out_len,
   unescaped_str = g_malloc(len + 1);
 
   p = unescaped_str;
-  for (i = 0; i < len; i++) {
-    if (str[i] == '\\' && str[i + 1] == 'x' && len - i >= 4) {
+  for (i = 0; i < (int)len; i++) {
+    if (str[i] == '\\' && str[i + 1] == 'x' && ((int)len) - i >= 4) {
       c = (g_ascii_xdigit_value(str[i + 2]) << 4) |
           g_ascii_xdigit_value(str[i + 3]);
       *p++ = c;
