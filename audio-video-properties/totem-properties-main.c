@@ -45,14 +45,15 @@ static GList *totem_properties_get_pages(CajaPropertyPageProvider *provider,
 
 static void totem_properties_plugin_register_type(GTypeModule *module) {
   const GTypeInfo info = {sizeof(GObjectClass),
-                          (GBaseInitFunc)NULL,
-                          (GBaseFinalizeFunc)NULL,
-                          (GClassInitFunc)NULL,
+                          NULL,
+                          NULL,
+                          NULL,
                           NULL,
                           NULL,
                           sizeof(GObject),
                           0,
-                          (GInstanceInitFunc)NULL};
+                          NULL,
+                          NULL};
   const GInterfaceInfo property_page_provider_iface_info = {
       (GInterfaceInitFunc)property_page_provider_iface_init, NULL, NULL};
 
