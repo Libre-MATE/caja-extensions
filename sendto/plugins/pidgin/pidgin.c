@@ -134,7 +134,7 @@ static void add_pidgin_contacts_to_model(GtkTreeStore *store, GtkTreeIter *iter,
   GError *error;
   GArray *contacts_list;
   GArray *accounts;
-  int i, j;
+  guint i, j;
 
   GdkPixbuf *icon;
   GHashTableIter hiter;
@@ -213,7 +213,7 @@ static void add_pidgin_contacts_to_model(GtkTreeStore *store, GtkTreeIter *iter,
 
   g_hash_table_iter_init(&hiter, contact_hash);
   while (g_hash_table_iter_next(&hiter, NULL, (gpointer)&contacts_group)) {
-    gint num_accounts;
+    guint num_accounts;
 
     dat = g_ptr_array_index(contacts_group, 0);
 
