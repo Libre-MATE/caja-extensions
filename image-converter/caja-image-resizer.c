@@ -42,7 +42,7 @@ struct _CajaImageResizer {
   gchar *suffix;
 
   int images_resized;
-  int images_total;
+  guint images_total;
   gboolean cancelled;
 
   gchar *size;
@@ -267,7 +267,7 @@ static void run_op(CajaImageResizer *resizer) {
   gtk_progress_bar_set_fraction(
       GTK_PROGRESS_BAR(resizer->progress_bar),
       (double)(resizer->images_resized + 1) / resizer->images_total);
-  tmp = g_strdup_printf(_("Resizing image: %d of %d"),
+  tmp = g_strdup_printf(_("Resizing image: %d of %u"),
                         resizer->images_resized + 1, resizer->images_total);
   gtk_progress_bar_set_text(GTK_PROGRESS_BAR(resizer->progress_bar), tmp);
   g_free(tmp);
