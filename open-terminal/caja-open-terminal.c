@@ -290,7 +290,6 @@ static void open_terminal_callback(CajaMenuItem *item,
   gchar **argv, *terminal_exec;
   gchar *working_directory;
   gchar *dfile;
-  MateDesktopItem *ditem;
   GdkScreen *screen;
 
   terminal_exec = default_terminal_application();
@@ -344,6 +343,7 @@ static void open_terminal_callback(CajaMenuItem *item,
   }
 
   if (dfile != NULL) {
+    MateDesktopItem *ditem;
     int orig_cwd = -1;
 
     do {

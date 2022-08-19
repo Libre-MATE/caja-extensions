@@ -79,7 +79,6 @@ static GList *caja_cwe_get_file_items(CajaMenuProvider *provider,
   GList *items = NULL;
   GList *scan;
   gboolean one_item;
-  CajaMenuItem *item;
 
   for (scan = files; scan; scan = scan->next) {
     CajaFileInfo *file = scan->data;
@@ -96,6 +95,8 @@ static GList *caja_cwe_get_file_items(CajaMenuProvider *provider,
   one_item = (files != NULL) && (files->next == NULL);
   if (one_item && is_image((CajaFileInfo *)files->data) &&
       !caja_file_info_is_directory((CajaFileInfo *)files->data)) {
+    CajaMenuItem *item;
+
     item = caja_menu_item_new("CajaCwe::sendto", _("Set as wallpaper"),
                               _("Set image as the current wallpaper"), NULL);
     g_signal_connect(item, "activate", G_CALLBACK(set_wallpaper_callback),

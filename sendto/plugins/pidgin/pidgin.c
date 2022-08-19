@@ -330,10 +330,6 @@ static gboolean send_file(int account, const char *who, const char *filename) {
 static gboolean send_files(NstPlugin *plugin, GtkWidget *contact_widget,
                            GList *file_list) {
   GList *file_iter;
-
-  GFile *file;
-  gchar *file_path;
-
   gint depth;
   GtkTreeIter iter;
   GtkTreePath *path;
@@ -364,8 +360,8 @@ static gboolean send_files(NstPlugin *plugin, GtkWidget *contact_widget,
 
   for (file_iter = file_list; file_iter != NULL;
        file_iter = g_list_next(file_iter)) {
-    file = g_file_new_for_uri((gchar *)file_iter->data);
-    file_path = g_file_get_path(file);
+    GFile *file = g_file_new_for_uri((gchar *)file_iter->data);
+    gchar *file_path = g_file_get_path(file);
     g_object_unref(file);
 
     if (file_path == NULL) {

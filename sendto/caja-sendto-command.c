@@ -368,14 +368,12 @@ static void option_changed(GtkComboBox *cb, NS_ui *ui) {
 
 static void set_contact_widgets(NS_ui *ui) {
   GList *aux;
-  GtkWidget *w;
-  NstPlugin *p;
 
   ui->contact_widgets = NULL;
 
   for (aux = plugin_list; aux; aux = aux->next) {
-    p = (NstPlugin *)aux->data;
-    w = p->info->get_contacts_widget(p);
+    NstPlugin *p = (NstPlugin *)aux->data;
+    GtkWidget *w = p->info->get_contacts_widget(p);
     gtk_box_pack_end(GTK_BOX(ui->hbox_contacts_ws), w, TRUE, TRUE, 0);
     gtk_widget_hide(GTK_WIDGET(w));
     ui->contact_widgets = g_list_append(ui->contact_widgets, w);
@@ -591,7 +589,6 @@ static void caja_sendto_create_ui(void) {
 
 static void caja_sendto_plugin_dir_process(const char *plugindir) {
   GDir *dir;
-  const char *item;
   NstPlugin *p = NULL;
   gboolean (*nst_init_plugin)(NstPlugin * p);
   GError *err = NULL;
@@ -603,6 +600,8 @@ static void caja_sendto_plugin_dir_process(const char *plugindir) {
               err ? err->message : "No reason");
     if (err) g_error_free(err);
   } else {
+    const char *item;
+
     while ((item = g_dir_read_name(dir))) {
       if (g_str_has_suffix(item, SOEXT)) {
         g_autofree gchar *module_path = NULL;

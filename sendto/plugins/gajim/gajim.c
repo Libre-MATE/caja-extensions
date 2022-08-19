@@ -53,14 +53,10 @@ static void _foreach_contact(gpointer contact, gpointer user_data) {
   GValue *value;
   GHashTable *contact_table;
 
-  /* holds contact props of already exisiting jid/nick */
-  GHashTable *existing_contact;
-
   /* name of the contact in completion list
      it may be jid, nick, jid (account), or nick(account) */
   GString *contact_str;
 
-  gchar *jid;
   gchar *account;
   gint i;
 
@@ -89,6 +85,10 @@ static void _foreach_contact(gpointer contact, gpointer user_data) {
 
   /* add nick the same way as jid */
   for (i = 0; i < 2; i++) {
+    /* holds contact props of already exisiting jid/nick */
+    GHashTable *existing_contact;
+    gchar *jid;
+
     value = g_hash_table_lookup(contact_table, COMPLETION_PROPS[i]);
     if (value == NULL || !G_VALUE_HOLDS_STRING(value)) {
       g_warning("String expected (contact - name)");
@@ -184,7 +184,6 @@ static gboolean _get_contacts(void) {
   GHashTable *prefs_map;
   gchar **accounts;
   gchar **account_iter;
-  gchar *account;
 
   error = NULL;
 
@@ -216,7 +215,7 @@ static gboolean _get_contacts(void) {
     return FALSE;
   }
   for (account_iter = accounts; *account_iter; account_iter++) {
-    account = g_strdup(*account_iter);
+    gchar *account = g_strdup(*account_iter);
     error = NULL;
     /* query gajim remote object and put results in 'contacts_list' */
     if (!dbus_g_proxy_call(
@@ -289,7 +288,6 @@ static void _add_contact_to_model(gpointer key, gpointer value,
   GdkPixbuf *pixbuf;
   GValue *val;
   GHashTable *contact_props;
-  const gchar *show;
 
   contact_props = (GHashTable *)value;
   pixbuf = NULL;
@@ -298,8 +296,7 @@ static void _add_contact_to_model(gpointer key, gpointer value,
     g_warning("String expected (contact - show)");
     pixbuf = NULL;
   } else {
-    show = g_value_get_string((GValue *)val);
-    _set_pixbuf_from_status(show, &pixbuf);
+    _set_pixbuf_from_status(g_value_get_string((GValue *)val), &pixbuf);
   }
 
   store = (GtkListStore *)user_data;
@@ -374,14 +371,11 @@ static void show_error(const gchar *title, const gchar *message) {
 static gboolean send_files(NstPlugin *plugin, GtkWidget *contact_widget,
                            GList *file_list) {
   GError *error;
-  GValue *value;
   GList *file_iter;
-  GHashTable *contact_props;
 
   gchar *send_to;
   gchar *jid;
   gchar *account;
-  gchar *file_path;
 
   if (proxy == NULL) {
     show_error(_("Unable to send file"),
@@ -391,12 +385,12 @@ static gboolean send_files(NstPlugin *plugin, GtkWidget *contact_widget,
   send_to = (gchar *)gtk_entry_get_text(GTK_ENTRY(contact_widget));
   g_debug("[Gajim] sending to: %s", send_to);
   if (strlen(send_to) != 0) {
-    contact_props = g_hash_table_lookup(jid_table, send_to);
+    GHashTable *contact_props = g_hash_table_lookup(jid_table, send_to);
     if (contact_props == NULL) {
       jid = send_to;
       account = NULL;
     } else {
-      value = g_hash_table_lookup(contact_props, "jid");
+      GValue *value = g_hash_table_lookup(contact_props, "jid");
       if (value == NULL || !G_VALUE_HOLDS_STRING(value)) {
         g_warning("[Gajim] string expected (contact - jid)");
         return FALSE;
@@ -414,6 +408,7 @@ static gboolean send_files(NstPlugin *plugin, GtkWidget *contact_widget,
   error = NULL;
   for (file_iter = file_list; file_iter != NULL; file_iter = file_iter->next) {
     char *uri = file_iter->data;
+    gchar *file_path;
 
     g_debug("[Gajim] file: %s", uri);
     error = NULL;

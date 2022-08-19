@@ -37,18 +37,13 @@
 static GObjectClass *parent_class;
 
 static void sendto_callback(CajaMenuItem *item, gpointer user_data) {
-  GList *files, *scan;
-  gchar *uri;
-  GString *cmd;
-
-  files = g_object_get_data(G_OBJECT(item), "files");
-
-  cmd = g_string_new("caja-sendto");
+  GList *scan;
+  GList *files = g_object_get_data(G_OBJECT(item), "files");
+  GString *cmd = g_string_new("caja-sendto");
 
   for (scan = files; scan; scan = scan->next) {
     CajaFileInfo *file = scan->data;
-
-    uri = caja_file_info_get_uri(file);
+    gchar *uri = caja_file_info_get_uri(file);
     g_string_append_printf(cmd, " \"%s\"", uri);
     g_free(uri);
   }

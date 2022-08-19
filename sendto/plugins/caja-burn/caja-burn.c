@@ -114,20 +114,17 @@ static GtkWidget *get_contacts_widget(NstPlugin *plugin) {
 
 static gboolean send_files(NstPlugin *plugin, GtkWidget *burntype_widget,
                            GList *file_list) {
-  GFileEnumerator *fenum;
-  GFileInfo *file_info;
-  GFile *child;
-
   if (gtk_combo_box_get_active(GTK_COMBO_BOX(burntype_widget)) ==
       COMBOBOX_OPTION_NEW_DVD) {
-    fenum = g_file_enumerate_children(burn, G_FILE_ATTRIBUTE_STANDARD_NAME,
-                                      G_FILE_QUERY_INFO_NONE, NULL, NULL);
-
+    GFileEnumerator *fenum =
+      g_file_enumerate_children(burn, G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                G_FILE_QUERY_INFO_NONE, NULL, NULL);
     if (fenum != NULL) {
+      GFileInfo *file_info;
+
       while ((file_info = g_file_enumerator_next_file(fenum, NULL, NULL)) !=
              NULL) {
-        child = g_file_get_child(burn, g_file_info_get_name(file_info));
-
+        GFile *child = g_file_get_child(burn, g_file_info_get_name(file_info));
         g_object_unref(file_info);
         g_file_delete(child, NULL, NULL);
         g_object_unref(child);
