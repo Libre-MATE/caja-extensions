@@ -57,7 +57,6 @@ struct _CajaImageResizer {
   GtkSpinButton *height_spinbutton;
   GtkRadioButton *append_radiobutton;
   GtkEntry *name_entry;
-  GtkRadioButton *inplace_radiobutton;
 
   GtkWidget *progress_dialog;
   GtkWidget *progress_bar;
@@ -348,8 +347,6 @@ static void caja_image_resizer_init(CajaImageResizer *resizer) {
       GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "append_radiobutton"));
   resizer->name_entry =
       GTK_ENTRY(gtk_builder_get_object(builder, "name_entry"));
-  resizer->inplace_radiobutton =
-      GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "inplace_radiobutton"));
 
   /* Set default item in combo box */
   /* gtk_combo_box_set_active  (resizer->size_combobox, 4);  1024x768 */
