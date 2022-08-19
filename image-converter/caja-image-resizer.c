@@ -52,7 +52,6 @@ struct _CajaImageResizer {
   GtkComboBoxText *size_combobox;
   GtkRadioButton *custom_pct_radiobutton;
   GtkSpinButton *pct_spinbutton;
-  GtkRadioButton *custom_size_radiobutton;
   GtkSpinButton *width_spinbutton;
   GtkSpinButton *height_spinbutton;
   GtkRadioButton *append_radiobutton;
@@ -337,8 +336,6 @@ static void caja_image_resizer_init(CajaImageResizer *resizer) {
       gtk_builder_get_object(builder, "custom_pct_radiobutton"));
   resizer->pct_spinbutton =
       GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "pct_spinbutton"));
-  resizer->custom_size_radiobutton = GTK_RADIO_BUTTON(
-      gtk_builder_get_object(builder, "custom_size_radiobutton"));
   resizer->width_spinbutton =
       GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "width_spinbutton"));
   resizer->height_spinbutton =
