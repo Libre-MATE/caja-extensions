@@ -54,7 +54,6 @@ struct _CajaImageRotator {
   GtkSpinButton *angle_spinbutton;
   GtkRadioButton *append_radiobutton;
   GtkEntry *name_entry;
-  GtkRadioButton *inplace_radiobutton;
 
   GtkWidget *progress_dialog;
   GtkWidget *progress_bar;
@@ -350,8 +349,6 @@ static void caja_image_rotator_init(CajaImageRotator *rotator) {
       GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "append_radiobutton"));
   rotator->name_entry =
       GTK_ENTRY(gtk_builder_get_object(builder, "name_entry"));
-  rotator->inplace_radiobutton =
-      GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "inplace_radiobutton"));
 
   /* Set default value for combobox */
   gtk_combo_box_set_active(rotator->angle_combobox, 0); /* 90° clockwise */
