@@ -42,7 +42,7 @@ struct _CajaImageRotator {
   gchar *suffix;
 
   int images_rotated;
-  int images_total;
+  guint images_total;
   gboolean cancelled;
 
   gchar *angle;
@@ -267,7 +267,7 @@ static void run_op(CajaImageRotator *rotator) {
   gtk_progress_bar_set_fraction(
       GTK_PROGRESS_BAR(rotator->progress_bar),
       (double)(rotator->images_rotated + 1) / rotator->images_total);
-  tmp = g_strdup_printf(_("Rotating image: %d of %d"),
+  tmp = g_strdup_printf(_("Rotating image: %d of %u"),
                         rotator->images_rotated + 1, rotator->images_total);
   gtk_progress_bar_set_text(GTK_PROGRESS_BAR(rotator->progress_bar), tmp);
   g_free(tmp);
